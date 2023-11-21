@@ -1,0 +1,231 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+section {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-template-rows: 100px 1fr;
+
+  grid-template-areas:
+    "filters header"
+    "filters table"
+    "filters table";
+}
+
+.table-block {
+  grid-area: table;
+  padding: 20px;
+  overflow: auto;
+}
+
+.search-block {
+  grid-area: header;
+  min-width: 650px;
+  padding: 20px;
+}
+
+$checkbox-size: 18px;
+$checkbox-border: #cecece;
+$checkbox-selected: #02bb72; // Primary colour
+
+.table-cell {
+  width: 200px; /* Set your desired width */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: none;
+  padding: 0.5em;
+}
+
+.filter-list {
+  grid-area: filters;
+  background-color: #f4f4f4;
+  height: 100vh;
+  padding: 10px;
+
+  h2 {
+    margin: 20px 0;
+  }
+
+  &__filter {
+    padding: 5px;
+  }
+  &__checkbox {
+    position: absolute;
+    opacity: 0;
+
+    // Text
+    & + label {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      line-height: $checkbox-size;
+      padding-left: $checkbox-size + 10;
+      font-size: $checkbox-size - 2;
+      font-family: sans-serif;
+      color: #666; // Label colour
+
+      // Checkbox
+      &:before {
+        position: absolute;
+        display: block;
+        left: 0;
+        top: 0;
+        content: "";
+        background: transparent;
+        width: $checkbox-size;
+        height: $checkbox-size;
+
+        box-shadow: inset 0 0 0 1px $checkbox-border;
+        border-radius: 4px;
+        transition: 200ms ease-in-out all;
+      }
+
+      // Tick
+      &:after {
+        position: absolute;
+        display: block;
+        top: 5px;
+        left: 8px;
+        content: "";
+        width: 3px;
+        height: 7px;
+        border-right: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        transform: rotate(45deg);
+
+        transition: 200ms ease-in-out all;
+      }
+    }
+
+    // Hover
+    & + label:hover {
+      color: #333;
+    }
+
+    // Focus
+    & + label:focus {
+      outline: none;
+    }
+
+    // Checked
+    &:checked {
+      & + label {
+        &:before {
+          background: $checkbox-selected;
+          box-shadow: none;
+        }
+        &:after {
+          border-color: white;
+        }
+      }
+    }
+
+    // Disabled
+    &:disabled {
+      & + label {
+        &:before {
+          background: #f2f2f2; // Disabled colour
+          box-shadow: none;
+        }
+        &:after {
+          border-color: transparent;
+        }
+      }
+    }
+
+    // Disabled Checked
+    &:checked:disabled {
+      & + label {
+        &:before {
+          background: #f2f2f2;
+          box-shadow: none;
+        }
+        &:after {
+          border-color: #cecece;
+        }
+      }
+    }
+  }
+}
+
+.search-bar {
+  padding: 12px;
+  min-width: 250px;
+  margin: 20px 0;
+
+  border-radius: 6px;
+  border: 1px solid#CACACA;
+}
+
+.table-header {
+  min-width: 200px; /* Set your desired width */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-save,
+.btn-cancelChanges {
+  padding: 12px 16px;
+  background: none;
+  border-radius: 6px;
+  border: 1px solid rgb(196, 196, 196);
+  margin-left: 10px;
+}
+
+.cell-btns {
+  display: flex;
+  justify-content: space-between;
+
+  .btn {
+    width: 48%;
+    padding: 0.5em;
+    background: none;
+    border: 1px solid rgb(222, 222, 222);
+    cursor: pointer;
+  }
+}
+
+.btn {
+  cursor: pointer !important;
+}
+
+/* Center tables for demo */
+table {
+  margin: 0;
+  color: #333;
+  background: white;
+  border: 1px solid grey;
+  font-size: 12pt;
+  border-collapse: collapse;
+
+  th {
+    color: #777;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.5em;
+    border: 1px solid lightgrey;
+  }
+
+  td {
+    border: 1px solid lightgrey;
+  }
+}
+
+.grouped-row {
+  border: 1px solid red;
+}
+
+select {
+  cursor: pointer !important;
+}
