@@ -12,6 +12,8 @@ body {
 }
 
 section {
+  width: 100vw;
+  height: 100vh;
   display: grid;
   grid-template-columns: 180px 1fr;
   grid-template-rows: 100px 1fr;
@@ -24,13 +26,14 @@ section {
 
 .table-block {
   grid-area: table;
-  padding: 20px;
+  padding: 0 20px;
+  margin: 20px 0;
   overflow: auto;
 }
 
 .search-block {
   grid-area: header;
-  min-width: 650px;
+  min-width: 800px;
   padding: 20px;
 }
 
@@ -211,8 +214,10 @@ table {
   border-collapse: collapse;
 
   th {
-    color: #777;
-    background: rgba(0, 0, 0, 0.1);
+    color: #414141;
+    background: rgb(200, 200, 200);
+    position: sticky;
+    top: 0;
     padding: 0.5em;
     border: 1px solid lightgrey;
   }
@@ -228,4 +233,15 @@ table {
 
 select {
   cursor: pointer !important;
+}
+
+.rowsAmountSelect {
+  padding: 0.8em;
+
+  border-radius: 6px;
+  border: 1px solid rgb(178, 178, 178);
+}
+
+.rowsToDisplayLabel {
+  margin: 0 10px;
 }

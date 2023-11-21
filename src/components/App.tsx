@@ -15,6 +15,7 @@ import {
   updateOptionsArray,
   updateValueInData,
 } from "../helpers";
+import RowsAmountSelect from "./RowsAmountSelect";
 
 const tableData: TableData = {
   data,
@@ -31,6 +32,7 @@ const App = () => {
   const [data, setData] = useState<DataRow[]>([]);
   const [columns, setColumns] = useState(sortedColumns);
   const [filters, setFilters] = useState<any>({});
+  const [rowsToShow, setRowsToShow] = useState(50); // Default value
   const [searchParams, setSearchParams] = useSearchParams({
     searchTerm: "",
   });
@@ -138,10 +140,19 @@ const App = () => {
     setData(newData);
   };
 
+  // Function to handle dropdown change
+  const handleRowsChange = (event: any) => {
+    const selectedRows = parseInt(event.target.value, 10);
+    setRowsToShow(selectedRows);
+  };
+
+  // Slice the data based on the selected number of rows
+  const slicedData = data.slice(0, rowsToShow);
+
   const filteredColumns = columns.filter((column) => !filters[column.id]);
 
   const filteredData = filterDataBySearchTerm(
-    data,
+    slicedData,
     filteredColumns,
     searchTerm
   );
@@ -171,6 +182,10 @@ const App = () => {
             className="btn btn-cancelChanges"
             text="Clean local storage"
             handleClick={handleCancelChangesClick}
+          />
+          <RowsAmountSelect
+            handleChange={handleRowsChange}
+            rowsToShow={rowsToShow}
           />
         </div>
         <div className="table-block">
