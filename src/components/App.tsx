@@ -11,6 +11,7 @@ import Table from "./Table";
 import { data, columns } from "../mockData";
 import { DataRow, ITableContext, TableData } from "../types";
 import {
+  convertColumnsListToObject,
   filterDataBySearchTerm,
   updateOptionsArray,
   updateValueInData,
@@ -26,11 +27,13 @@ const sortedColumns = tableData.columns
   .slice()
   .sort((a, b) => a.ordinalNo - b.ordinalNo);
 
+const reducedToObjectColumns = convertColumnsListToObject(sortedColumns);
+
 export const TableContext = createContext<ITableContext | null>(null);
 
 const App = () => {
   const [data, setData] = useState<DataRow[]>([]);
-  const [columns, setColumns] = useState(sortedColumns);
+  const [columns, setColumns] = useState(reducedToObjectColumns);
   const [filters, setFilters] = useState<any>({});
   const [rowsToShow, setRowsToShow] = useState(50); // Default value
   const [searchParams, setSearchParams] = useSearchParams({
@@ -149,7 +152,10 @@ const App = () => {
   // Slice the data based on the selected number of rows
   const slicedData = data.slice(0, rowsToShow);
 
-  const filteredColumns = columns.filter((column) => !filters[column.id]);
+  const columnsAsArray = Object.entries(reducedToObjectColumns);
+  const filteredColumns = Object.fromEntries(
+    columnsAsArray.filter((column) => !filters[column[0]])
+  );
 
   const filteredData = filterDataBySearchTerm(
     slicedData,

@@ -14,16 +14,16 @@ const FilterList = ({ handleCheckboxChange, filters }: IProps) => {
     <div className="filter-list">
       <h2>Filter List</h2>
       <div className="filter-list__options">
-        {columns.map((column) => (
-          <div className="filter-list__filter" key={column.id}>
+        {Object.entries(columns).map((column) => (
+          <div className="filter-list__filter" key={column[0]}>
             <input
               type="checkbox"
               className="filter-list__checkbox"
-              id={column.id}
-              checked={filters[column.id] || false}
-              onChange={() => handleCheckboxChange(column.id)}
+              id={column[0]}
+              checked={filters[column[0]] || false}
+              onChange={() => handleCheckboxChange(column[0])}
             />
-            <label htmlFor={column.id}>{column.title}</label>
+            <label htmlFor={column[0]}>{column[1].title}</label>
           </div>
         ))}
       </div>

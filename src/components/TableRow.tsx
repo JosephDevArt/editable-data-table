@@ -38,13 +38,14 @@ const TableRow = ({ row, draggable, parentRowId }: IPropos) => {
           handleDrag(e, row.id);
         }}
       >
-        {filteredColumns.map((column) => (
+        {Object.entries(filteredColumns).map((column) => (
           <TableCell
-            key={column.id}
+            key={column[0]}
             rowId={row.id}
             parentRowId={parentRowId}
-            column={column}
-            value={row[column.id]}
+            column={column[1]}
+            columnId={column[0]}
+            value={row[column[0]]}
           />
         ))}
       </tr>

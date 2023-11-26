@@ -1,16 +1,23 @@
 // components/TableCell.jsx
 import { useContext } from "react";
 import { TableContext } from "./App";
-import { DataColumn, ITableContext } from "../types";
+import { ColumnConverted, DataColumn, ITableContext } from "../types";
 
 interface IPropos {
   value: any;
-  column: DataColumn;
+  column: ColumnConverted;
+  columnId: string;
   rowId: string;
   parentRowId?: string;
 }
 
-const TableCell = ({ column, value, rowId, parentRowId }: IPropos) => {
+const TableCell = ({
+  column,
+  columnId,
+  value,
+  rowId,
+  parentRowId,
+}: IPropos) => {
   const isSelectionList = column.type == "selection";
   const { handleEdit, handleSelect } = useContext(
     TableContext
@@ -23,7 +30,7 @@ const TableCell = ({ column, value, rowId, parentRowId }: IPropos) => {
           className="table-cell"
           style={{ width: "100%" }}
           onChange={(e) =>
-            handleSelect(rowId, column.id, e.target.value, parentRowId)
+            handleSelect(rowId, columnId, e.target.value, parentRowId)
           }
           name="hey"
         >
@@ -40,7 +47,7 @@ const TableCell = ({ column, value, rowId, parentRowId }: IPropos) => {
           type={column.type}
           value={value}
           onChange={(e) =>
-            handleEdit(rowId, column.id, e.target.value, parentRowId)
+            handleEdit(rowId, columnId, e.target.value, parentRowId)
           }
         />
       )}

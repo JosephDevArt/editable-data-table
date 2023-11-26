@@ -8,9 +8,9 @@ const TableHeaders = () => {
   return (
     <thead>
       <tr>
-        {filteredColumns.map((column) => (
-          <th className="table-header" key={column.id}>
-            {column.title}
+        {Object.entries(filteredColumns).map((column) => (
+          <th className="table-header" key={column[0]}>
+            {column[1].title}
           </th>
         ))}
       </tr>

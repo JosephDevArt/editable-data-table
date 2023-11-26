@@ -11,15 +11,26 @@ export interface DataColumn {
   width?: number;
 }
 
+export interface ColumnConverted {
+  ordinalNo: number;
+  title: string;
+  type: string;
+  width?: number;
+}
+
+export interface DataColumnConverted {
+  [id: string]: ColumnConverted;
+}
+
 export interface TableData {
   columns: DataColumn[];
   data: DataRow[] | [];
 }
 
 export interface ITableContext {
-  columns: DataColumn[];
+  columns: DataColumnConverted;
   filteredData: DataRow[];
-  filteredColumns: DataColumn[];
+  filteredColumns: DataColumnConverted;
   handleEdit: (
     rowId: string,
     columnId: string,

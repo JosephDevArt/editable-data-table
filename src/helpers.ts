@@ -1,4 +1,4 @@
-import { DataColumn, DataRow } from "./types";
+import { DataColumn, DataColumnConverted, DataRow } from "./types";
 
 export const moveStringToStartOfArray = (
   arr: string[],
@@ -81,7 +81,7 @@ export const updateValueInData = (
 
 export const filterDataBySearchTerm = (
   data: DataRow[],
-  filteredColumns: DataColumn[],
+  filteredColumns: DataColumnConverted,
   searchTerm: string
 ) => {
   return data
@@ -112,13 +112,11 @@ export const filterDataBySearchTerm = (
 
 function filterRowBySearchTerm(
   row: DataRow,
-  filteredColumns: DataColumn[],
+  filteredColumns: DataColumnConverted,
   searchTerm: string
 ) {
   return Object.entries(row).filter((rowEntry) => {
-    const columnType = filteredColumns.find(
-      (column) => column.id === rowEntry[0]
-    )?.type;
+    const columnType = filteredColumns[rowEntry[0]]?.type;
 
     if (!columnType) return false;
 
@@ -137,3 +135,12 @@ function filterRowBySearchTerm(
     return false;
   });
 }
+
+export const convertColumnsListToObject = (columns: DataColumn[]) => {
+  // Convert the columns array to an object with ID as key and the rest of the data as value
+  return columns.reduce((acc: DataColumnConverted, column) => {
+    const { id, ...rest } = column;
+    acc[id] = rest;
+    return acc;
+  }, {});
+};
